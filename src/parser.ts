@@ -23,7 +23,7 @@ export function parseMetadataDocument(content: string): { metadata: WikiMetadata
       const metadata: WikiMetadataItem[] = block.split(/\r?\n/u).flatMap((line) => {
         const trimmed = line.trim();
         if (!trimmed) return [];
-        const match = trimmed.match(/^([\p{L}\p{N}_-]+)\s*=\s*(.*)$/u);
+        const match = trimmed.match(/^([\p{L}\p{N}_-]+)\s*[:=]\s*(.*)$/u);
         if (match) return [{ key: match[1].trim(), value: match[2].trim() }];
         const flagMatch = trimmed.match(/^([\p{L}\p{N}_-]+)$/u);
         if (flagMatch) return [{ key: flagMatch[1].trim(), value: "true" }];
@@ -40,7 +40,7 @@ export function parseMetadataDocument(content: string): { metadata: WikiMetadata
     const metadata: WikiMetadataItem[] = block.split(/\r?\n/u).flatMap((line) => {
       const trimmed = line.trim();
       if (!trimmed) return [];
-      const match = trimmed.match(/^([\p{L}\p{N}_-]+)\s*=\s*(.*)$/u);
+      const match = trimmed.match(/^([\p{L}\p{N}_-]+)\s*[:=]\s*(.*)$/u);
       if (match) return [{ key: match[1].trim(), value: match[2].trim() }];
       const flagMatch = trimmed.match(/^([\p{L}\p{N}_-]+)$/u);
       if (flagMatch) return [{ key: flagMatch[1].trim(), value: "true" }];

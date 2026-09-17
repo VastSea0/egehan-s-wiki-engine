@@ -1,6 +1,6 @@
 {
   "name": "egehan-s-wiki-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Text-first, zero-bloat wiki and publication engine with three-color link resolution, metadata directives, and human-thought boundaries.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
