@@ -241,12 +241,16 @@ export function parseWikiContent(
     const exists = existingSlugs.size === 0 || existingSlugs.has(slug) || existingSlugs.has(target);
 
     // Kırmızı Link (Red Link — Sayfası henüz açılmamış)
+    const href = options.hrefFor
+      ? options.hrefFor(target, exists)
+      : exists ? `/${linkBase}/${slug}` : `/${linkBase}/${slug}?create=1`;
+
     if (!exists) {
-      return `<a href="/${linkBase}/${slug}?create=1" class="is-red-link" title="${target} (sayfa henüz mevcut değil)">${label}</a>`;
+      return `<a href="${href}" class="is-red-link" title="${target} (sayfa henüz mevcut değil)">${label}</a>`;
     }
 
     // Mavi Link (Blue Link — Doğrulanmış)
-    return `<a href="/${linkBase}/${slug}" class="is-blue-link">${label}</a>`;
+    return `<a href="${href}" class="is-blue-link">${label}</a>`;
   });
 
   // 7. Standart Markdown Linkleri [Etiket](URL)

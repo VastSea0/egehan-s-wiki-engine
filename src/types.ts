@@ -94,6 +94,8 @@ export interface ParseWikiOptions {
   existingSlugs?: Set<string>;
   linkBase?: "wiki" | "blog" | "public" | string;
   highlightCode?: boolean;
+  pageTitle?: string;
+  hrefFor?: (target: string, exists: boolean) => string;
 }
 
 export interface ParsedWikiDocument {
