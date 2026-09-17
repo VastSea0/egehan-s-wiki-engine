@@ -79,21 +79,22 @@ export function extractFrontmatter(rawContent: string): { frontmatter: WikiPageF
     const colonIdx = line.indexOf(":");
     if (colonIdx > 0) {
       const key = line.slice(0, colonIdx).trim();
-      let val = line.slice(colonIdx + 1).trim();
+      const rawVal = line.slice(colonIdx + 1).trim();
+      let parsedVal: unknown = rawVal;
 
-      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-        val = val.slice(1, -1);
-      } else if (val.startsWith("[") && val.endsWith("]")) {
+      if ((rawVal.startsWith('"') && rawVal.endsWith('"')) || (rawVal.startsWith("'") && rawVal.endsWith("'"))) {
+        parsedVal = rawVal.slice(1, -1);
+      } else if (rawVal.startsWith("[") && rawVal.endsWith("]")) {
         try {
-          val = JSON.parse(val);
+          parsedVal = JSON.parse(rawVal);
         } catch {
-          val = val
+          parsedVal = rawVal
             .slice(1, -1)
             .split(",")
-            .map((s) => s.trim().replace(/^['"]|['"]$/g, ""));
+            .map((s: string) => s.trim().replace(/^['"]|['"]$/g, ""));
         }
       }
-      frontmatter[key] = val;
+      frontmatter[key] = parsedVal;
     }
   });
 
